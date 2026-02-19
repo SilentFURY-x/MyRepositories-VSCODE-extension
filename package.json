@@ -25,7 +25,7 @@
     "commands": [
       {
         "command": "my-repositories.openRepoPage",
-        "title": "Open My GitHub Repository Page"
+        "title": "Open GitHub Repository Page"
       }
     ]
   },
