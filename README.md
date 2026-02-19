@@ -1,71 +1,68 @@
-# my-repositories README
+# 🚀 My Repositories (VS Code Extension)
 
-This is the README for your extension "my-repositories". After writing up a brief description, we recommend including the following sections.
+[![VS Code](https://img.shields.io/badge/VS%20Code-Extension-blue?logo=visual-studio-code)](https://code.visualstudio.com/)
+[![GitHub](https://img.shields.io/badge/GitHub-API-black?logo=github)](https://docs.github.com/en/rest)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## Features
-
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+**My Repositories** is a productivity-focused VS Code extension built to eliminate the friction of searching for your code online. It fetches your live GitHub repository list directly into the editor's search bar, allowing you to jump from code to browser in seconds.
 
 ---
 
-## Following extension guidelines
+## ✨ Key Features
 
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
+* **🔍 Live Search:** Type and filter through your entire GitHub repository list in real-time.
+* **🌐 Octokit Integration:** Powered by the official GitHub SDK for reliable data fetching.
+* **🔑 Secure Auth:** Uses VS Code's native Authentication provider—no need to manually manage Personal Access Tokens (PATs).
+* **🖱️ One-Click Access:** Adds a dedicated GitHub icon to your **Status Bar** for instant access.
+* **🖱️ Context Menu:** Right-click anywhere in your editor to trigger the repository search.
 
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
+---
 
-## Working with Markdown
+## 📸 Preview
 
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
 
-## For more information
+---
 
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+## 🛠️ Technical Implementation
 
-**Enjoy!**
+Built with a focus on modern TypeScript and efficient API handling:
+* **Asynchronous Fetching:** Implements `vscode.window.withProgress` to ensure a smooth UI during API calls.
+* **Dynamic UI:** Uses `showQuickPick` with fuzzy-search enabled for fast navigation.
+* **Cross-Platform:** Tested and optimized for both **Arch Linux (Hyprland)** and **Windows** environments.
+
+### Tech Stack
+- **Language:** TypeScript
+- **Registry:** VS Code Extension API
+- **API:** GitHub REST API via Octokit
+
+---
+
+## 🚀 Installation & Setup
+
+1.  **Clone the Repo:**
+    ```bash
+    git clone https://github.com/SilentFURY-x/MyRepositories-VSCODE-extension.git
+    ```
+2.  **Install Dependencies:**
+    ```bash
+    npm install
+    ```
+3.  **Run Extension:**
+    - Press `F5` to open the **Extension Development Host**.
+    - Run the command `Open My GitHub Repository Page` from the Command Palette (`Ctrl+Shift+P`).
+
+---
+
+## 👤 Author
+
+**Arjun Tyagi**
+
+- **GitHub:** [@SilentFURY-x](https://github.com/SilentFURY-x)
+- **Projects:** RideAlong, ShopAThing, PeerConnect
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

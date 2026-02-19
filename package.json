@@ -50,5 +50,9 @@
   "dependencies": {
     "@octokit/rest": "^22.0.1",
     "octokit": "^5.0.5"
-  }
+  },
+  "repository": {
+  "type": "git",
+  "url": "https://github.com/SilentFURY-x/my-repositories.git"
+}
 }
