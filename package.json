@@ -14,8 +14,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "my-repositories.helloWorld",
-        "title": "Hello World"
+        "command": "my-repositories.openRepoPage",
+        "title": "Open My GitHub Repository Page"
       }
     ]
   },
