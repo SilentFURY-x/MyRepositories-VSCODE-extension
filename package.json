@@ -12,6 +12,15 @@
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
+    "menus": {
+      "editor/context": [
+        {
+          "command": "my-repositories.openRepoPage",
+          "group": "navigation",
+          "when": "editorTextFocus"
+        }
+      ]
+    },
     "commands": [
       {
         "command": "my-repositories.openRepoPage",
