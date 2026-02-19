@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { execSync } from 'child_process';
 
 export function activate(context: vscode.ExtensionContext) {
 
@@ -12,9 +13,23 @@ context.subscriptions.push(statusBarItem);
 	
 	const disposable = vscode.commands.registerCommand('my-repositories.openRepoPage', () => {
 
-		const githubUrl = 'https://github.com/SilentFURY-x?tab=repositories';
-		vscode.window.showInformationMessage('Opening My GitHub Repository Page!');
-		vscode.env.openExternal(vscode.Uri.parse(githubUrl));
+		const projectPath = vscode.workspace.workspaceFolders?.[0].uri.fsPath;
+		if (!projectPath) {
+			vscode.window.showErrorMessage('Please open a folder first!');
+			return;
+		}
+
+		try {
+			const currentRepoUrl = execSync('git config --get remote.origin.url', { cwd: projectPath }).toString().trim();
+
+			const repoPageUrl = currentRepoUrl.split('/').slice(0, 4).join('/') + '?tab=repositories';
+			
+			vscode.window.showInformationMessage('Opening Your GitHub Repository Page!');
+			vscode.env.openExternal(vscode.Uri.parse(repoPageUrl));
+		}
+		catch (error) {
+			vscode.window.showErrorMessage('This folder does not seem to be a Git repository.');
+		}
 	});
 
 	context.subscriptions.push(disposable);
