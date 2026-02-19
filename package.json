@@ -2,6 +2,7 @@
   "name": "my-repositories",
   "displayName": "My Repositories",
   "description": "An extension that opens my Github Repo Page",
+  "type": "module",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.109.0"
@@ -37,13 +38,17 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.109.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "22.x",
-    "typescript-eslint": "^8.54.0",
+    "@types/vscode": "^1.109.0",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.5.2",
     "eslint": "^9.39.2",
     "typescript": "^5.9.3",
-    "@vscode/test-cli": "^0.0.12",
-    "@vscode/test-electron": "^2.5.2"
+    "typescript-eslint": "^8.54.0"
+  },
+  "dependencies": {
+    "@octokit/rest": "^22.0.1",
+    "octokit": "^5.0.5"
   }
 }

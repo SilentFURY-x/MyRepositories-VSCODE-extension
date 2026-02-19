@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { execSync } from 'child_process';
+import { Octokit } from "@octokit/rest";
 
 export function activate(context: vscode.ExtensionContext) {
 
@@ -11,25 +11,53 @@ export function activate(context: vscode.ExtensionContext) {
 
 context.subscriptions.push(statusBarItem);
 	
-	const disposable = vscode.commands.registerCommand('my-repositories.openRepoPage', () => {
-
-		const projectPath = vscode.workspace.workspaceFolders?.[0].uri.fsPath;
-		if (!projectPath) {
-			vscode.window.showErrorMessage('Please open a folder first!');
-			return;
-		}
+	const disposable = vscode.commands.registerCommand('my-repositories.openRepoPage', async () => {
 
 		try {
-			const currentRepoUrl = execSync('git config --get remote.origin.url', { cwd: projectPath }).toString().trim();
+            // 1. Get Authentication Session from VS Code
+            const session = await vscode.authentication.getSession('github', ['repo'], { createIfNone: true });
+            
+            if (!session) {
+                return; // User cancelled login
+            }
 
-			const repoPageUrl = currentRepoUrl.split('/').slice(0, 4).join('/') + '?tab=repositories';
-			
-			vscode.window.showInformationMessage('Opening Your GitHub Repository Page!');
-			vscode.env.openExternal(vscode.Uri.parse(repoPageUrl));
-		}
-		catch (error) {
-			vscode.window.showErrorMessage('This folder does not seem to be a Git repository.');
-		}
+            // 2. Initialize Octokit with the token
+            const octokit = new Octokit({ auth: session.accessToken });
+
+            // 3. Show a loading message while fetching
+            const repos = await vscode.window.withProgress({
+                location: vscode.ProgressLocation.Notification,
+                title: "Fetching your GitHub repositories...",
+                cancellable: false
+            }, async () => {
+                const response = await octokit.rest.repos.listForAuthenticatedUser({
+                    sort: 'updated',
+                    per_page: 100
+                });
+                return response.data;
+            });
+
+            // 4. Map data for the Search Bar (QuickPick)
+            const items = repos.map(repo => ({
+                label: repo.name,
+                description: repo.description || "",
+                detail: repo.html_url,
+                url: repo.html_url
+            }));
+
+            // 5. Show the list and handle selection
+            const selected = await vscode.window.showQuickPick(items, {
+                placeHolder: 'Search your repositories...',
+                matchOnDescription: true
+            });
+
+            if (selected) {
+                vscode.env.openExternal(vscode.Uri.parse(selected.url));
+            }
+
+        } catch (error) {
+            vscode.window.showErrorMessage("Error fetching repositories: " + error);
+        }
 	});
 
 	context.subscriptions.push(disposable);
